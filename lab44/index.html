@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Демонстрація бібліотеки сортування</title>
+</head>
+<body>
+    <script src="sorting-library.js"></script>
+    <script>
+        
+        const denseArray = Array.from({ length: 100 }, () => Math.floor(Math.random() * 100));
+
+        console.log("Нерозріджений масив до сортування:", denseArray);
+        console.log("Нерозріджений масив після сортування обміном:", SortingLibrary.exchangeSort([...denseArray], 'asc'));
+        console.log("Нерозріджений масив після сортування вибором:", SortingLibrary.selectionSort([...denseArray], 'desc'));
+        console.log("Нерозріджений масив після сортування вставками:", SortingLibrary.insertionSort([...denseArray], 'asc'));
+        console.log("Нерозріджений масив після сортування Шелла:", SortingLibrary.shellSort([...denseArray], 'desc'));
+        console.log("Нерозріджений масив після швидкого сортування:", SortingLibrary.quickSort([...denseArray], 'asc'));
+
+        
+        const sparseArray = Array.from({ length: 100 }, (_, index) => index % 2 === 0 ? undefined : Math.floor(Math.random() * 100));
+
+        console.log("Розріджений масив до сортування:", sparseArray);
+        console.log("Розріджений масив після сортування обміном:", SortingLibrary.exchangeSort([...sparseArray], 'asc'));
+        console.log("Розріджений масив після сортування вибором:", SortingLibrary.selectionSort([...sparseArray], 'desc'));
+        console.log("Розріджений масив після сортування вставками:", SortingLibrary.insertionSort([...sparseArray], 'asc'));
+        console.log("Розріджений масив після сортування Шелла:", SortingLibrary.shellSort([...sparseArray], 'desc'));
+        console.log("Розріджений масив після швидкого сортування:", SortingLibrary.quickSort([...sparseArray], 'asc'));
+    </script>
+</body>
+</html>
+
