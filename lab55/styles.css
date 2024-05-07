@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Заборона розтягування сторінки */
+}
+
+.menu {
+    text-align: center;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.game-container {
+    position: relative;
+}
+
+#score {
+    position: absolute;
+    top: 20px; 
+    right: 20px; 
+
+}
+
+#timer {
+    position: absolute;
+    top: 50px; 
+    right: 40px; 
+}
+

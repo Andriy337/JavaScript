@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="menu" id="menu">
+        <h1>Pixel Hunt</h1>
+        <label for="difficulty">Виберіть рівень складності:</label>
+        <select id="difficulty">
+            <option value="easy">Легкий</option>
+            <option value="medium">Середній</option>
+            <option value="hard">Важкий</option>
+        </select>
+        <label for="color">Виберіть колір квадрату:</label>
+        <select id="color">
+            <option value="#ff0000">Червоний</option>
+            <option value="#00ff00">Зелений</option>
+            <option value="#0000ff">Синій</option>
+        </select>
+        <button onclick="startGame()">Старт</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
