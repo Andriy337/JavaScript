@@ -1,143 +1,179 @@
-const SortingLibrary = {
+var SortingLibrary = {
+    pushUndefined: function(array) {
+        let undefinedCount = 0;
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] === undefined) {
+                undefinedCount++;
+                array.splice(i, 1);
+                i--;
+            }
+        }
+        array.push(...new Array(undefinedCount).fill(undefined));
+        console.log(`Count of undefined elements: ${undefinedCount}`);
+        return undefinedCount;
+    },
 
-    exchangeSort: function(arr, order) {
+    exchangeSort: function(array, sortOrder) {
         let comparisons = 0;
         let exchanges = 0;
-        
-        for (let i = 0; i < arr.length; i++) {
-            for (let j = i + 1; j < arr.length; j++) {
+
+        const len = array.length;
+        let undefinedCount = this.pushUndefined(array);
+
+        for (let i = 0; i < len - undefinedCount - 1; i++) {
+            for (let j = 0; j < len - undefinedCount - 1 - i; j++) {
                 comparisons++;
-                if ((order === 'asc' && arr[i] > arr[j]) || (order === 'desc' && arr[i] < arr[j])) {
-                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                if ((sortOrder === 'asc' && array[j] > array[j + 1]) || (sortOrder === 'desc' && array[j] < array[j + 1])) {
                     exchanges++;
+                    [array[j], array[j + 1]] = [array[j + 1], array[j]];
                 }
             }
         }
 
-        console.log(`Обмінне сортування: Порівнянь ${comparisons}, Обмінів - ${exchanges}`);
-        return arr;
+        console.log(`Number of comparisons: ${comparisons}`);
+        console.log(`Number of exchanges: ${exchanges}`);
+        return array;
     },
 
-
-    selectionSort: function(arr, order) {
+    minElementSort: function(array, sortOrder) {
         let comparisons = 0;
         let exchanges = 0;
-        
-        for (let i = 0; i < arr.length - 1; i++) {
+
+        const len = array.length;
+        let undefinedCount = this.pushUndefined(array);
+
+        for (let i = 0; i < len - undefinedCount - 1; i++) {
             let minIndex = i;
-            for (let j = i + 1; j < arr.length; j++) {
+            for (let j = i + 1; j < len - undefinedCount; j++) {
                 comparisons++;
-                if ((order === 'asc' && arr[j] < arr[minIndex]) || (order === 'desc' && arr[j] > arr[minIndex])) {
+                if ((sortOrder === 'asc' && array[j] < array[minIndex]) || (sortOrder === 'desc' && array[j] > array[minIndex])) {
                     minIndex = j;
                 }
             }
             if (minIndex !== i) {
-                [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
                 exchanges++;
+                [array[i], array[minIndex]] = [array[minIndex], array[i]];
             }
         }
 
-        console.log(`Сортування мінімальних елементів: Порівнянь - ${comparisons}, Обмінів - ${exchanges}`);
-        return arr;
+        console.log(`Number of comparisons: ${comparisons}`);
+        console.log(`Number of exchanges: ${exchanges}`);
+        return array;
     },
 
-
-    insertionSort: function(arr, order) {
+    insertionSort: function(array, sortOrder) {
         let comparisons = 0;
         let exchanges = 0;
-        
-        for (let i = 1; i < arr.length; i++) {
-            let current = arr[i];
+
+        const len = array.length;
+        let undefinedCount = this.pushUndefined(array);
+
+        for (let i = 1; i < len - undefinedCount; i++) {
+            let currentValue = array[i];
             let j = i - 1;
-            comparisons++;
-            while (j >= 0 && ((order === 'asc' && arr[j] > current) || (order === 'desc' && arr[j] < current))) {
-                arr[j + 1] = arr[j];
+
+            while (j >= 0 && ((sortOrder === 'asc' && array[j] > currentValue) || (sortOrder === 'desc' && array[j] < currentValue))) {
+                comparisons++;
+                array[j + 1] = array[j];
                 j--;
-                exchanges++;
-                if (j >= 0) comparisons++;
             }
-            arr[j + 1] = current;
+            array[j + 1] = currentValue;
+            exchanges++;
         }
 
-        console.log(`Сортування вставками: Порівнянь - ${comparisons}, Обмінів - ${exchanges}`);
-        return arr;
+        console.log(`Number of comparisons: ${comparisons}`);
+        console.log(`Number of exchanges: ${exchanges}`);
+        return array;
     },
 
-    shellSort: function(arr, order) {
+    shellSort: function(array, sortOrder) {
         let comparisons = 0;
         let exchanges = 0;
-        const n = arr.length;
-        let gap = Math.floor(n / 2);
 
-        while (gap > 0) {
-            for (let i = gap; i < n; i++) {
-                let temp = arr[i];
+        const len = array.length;
+        let undefinedCount = this.pushUndefined(array);
+
+        for (let gap = Math.floor((len - undefinedCount) / 2); gap > 0; gap = Math.floor(gap / 2)) {
+            for (let i = gap; i < len - undefinedCount; i++) {
+                let temp = array[i];
                 let j = i;
-                comparisons++;
-                while (j >= gap && ((order === 'asc' && arr[j - gap] > temp) || (order === 'desc' && arr[j - gap] < temp))) {
-                    arr[j] = arr[j - gap];
+
+                while (j >= gap && ((sortOrder === 'asc' && array[j - gap] > temp) || (sortOrder === 'desc' && array[j - gap] < temp))) {
+                    comparisons++;
+                    array[j] = array[j - gap];
                     j -= gap;
-                    exchanges++;
-                    if (j >= gap) comparisons++;
                 }
-                arr[j] = temp;
+                array[j] = temp;
+                exchanges++;
             }
-            gap = Math.floor(gap / 2);
         }
 
-        console.log(`Сортування Шелла: Порівнянь - ${comparisons}, Обмінів - ${exchanges}`);
-        return arr;
+        console.log(`Number of comparisons: ${comparisons}`);
+        console.log(`Number of exchanges: ${exchanges}`);
+        return array;
     },
 
-
-    quickSort: function(arr, order) {
+    quickSort: function(array, sortOrder) {
         let comparisons = 0;
         let exchanges = 0;
 
         function partition(arr, low, high) {
-            let pivot = arr[Math.floor((low + high) / 2)];
-            let i = low;
-            let j = high;
-            while (i <= j) {
+            let pivot = arr[high];
+            let i = low - 1;
+            for (let j = low; j < high; j++) {
                 comparisons++;
-                while ((order === 'asc' && arr[i] < pivot) || (order === 'desc' && arr[i] > pivot)) {
+                if ((sortOrder === 'asc' && arr[j] < pivot) || (sortOrder === 'desc' && arr[j] > pivot)) {
                     i++;
-                    comparisons++;
-                }
-                comparisons++;
-                while ((order === 'asc' && arr[j] > pivot) || (order === 'desc' && arr[j] < pivot)) {
-                    j--;
-                    comparisons++;
-                }
-                if (i <= j) {
                     [arr[i], arr[j]] = [arr[j], arr[i]];
                     exchanges++;
-                    i++;
-                    j--;
                 }
             }
-            return i;
+            [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+            exchanges++;
+            return i + 1;
         }
 
         function quickSortHelper(arr, low, high) {
             if (low < high) {
                 let pivotIndex = partition(arr, low, high);
                 quickSortHelper(arr, low, pivotIndex - 1);
-                quickSortHelper(arr, pivotIndex, high);
+                quickSortHelper(arr, pivotIndex + 1, high);
             }
         }
 
-        quickSortHelper(arr, 0, arr.length - 1);
-        console.log(`Швидке сортування Хоара: Порівнянь - ${comparisons}, Обмінів - ${exchanges}`);
-        return arr;
+        let undefinedCount = this.pushUndefined(array);
+        quickSortHelper(array, 0, array.length - undefinedCount - 1);
+
+        console.log(`Number of comparisons: ${comparisons}`);
+        console.log(`Number of exchanges: ${exchanges}`);
+        return array;
     }
 };
 
 
-const array = [5, 3, 8, 1, 2, 7, 4, 6];
+let arr = Array.from({ length: 100 }, () => Math.floor(Math.random() * 100));
 
-console.log(SortingLibrary.exchangeSort([...array], 'asc'));
-console.log(SortingLibrary.selectionSort([...array], 'desc'));
-console.log(SortingLibrary.insertionSort([...array], 'asc'));
-console.log(SortingLibrary.shellSort([...array], 'desc'));
-console.log(SortingLibrary.quickSort([...array], 'asc'));
+console.log("==== Exchange Sort ====");
+console.log(SortingLibrary.exchangeSort([...arr], "asc"));
+console.log("==== Min Element Sort ====");
+console.log(SortingLibrary.minElementSort([...arr], "asc"));
+console.log("==== Insertion Sort ====");
+console.log(SortingLibrary.insertionSort([...arr], "asc"));
+console.log("==== Shell Sort ====");
+console.log(SortingLibrary.shellSort([...arr], "asc"));
+console.log("==== Quick Sort ====");
+console.log(SortingLibrary.quickSort([...arr], "asc"));
+
+
+let sparseArr = Array.from({ length: 100 }, () => (Math.random() > 0.5 ? Math.floor(Math.random() * 100) : undefined));
+
+console.log("==== Exchange Sort (Sparse) ====");
+console.log(SortingLibrary.exchangeSort([...sparseArr], "desc"));
+console.log("==== Min Element Sort (Sparse) ====");
+console.log(SortingLibrary.minElementSort([...sparseArr], "desc"));
+console.log("==== Insertion Sort (Sparse) ====");
+console.log(SortingLibrary.insertionSort([...sparseArr], "desc"));
+console.log("==== Shell Sort (Sparse) ====");
+console.log(SortingLibrary.shellSort([...sparseArr], "desc"));
+console.log("==== Quick Sort (Sparse) ====");
+console.log(SortingLibrary.quickSort([...sparseArr], "desc"));
