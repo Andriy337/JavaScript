@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Catalog</title>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">
+        <a href="#"><img src="https://secure.gravatar.com/avatar/fabdb283fe15708440314fae08b0e7a1?s=60&d=retro&r=g" alt="Логотип"></a>
+        <a href="#">F.company</a>
+    </div>
+    <ul class="container__nav-menu">
+        <li class="item1"><a href="#" onclick="loadHomePage()">HOME</a></li>
+        <li class="item2"><a id="myButton" href="#" onclick="loadCatalog()">Catalog</a></li>
+    </ul>       
+</header>
+
+<div class="container">
+    <section class="section">
+        <div class="catalog_container" id="content"></div>
+        <div id="subContent"></div>
+    </section>
+</div>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section address">
+            <h4>Contact Us</h4>
+            <p>123 University Ave,<br>City, State, 12345</p>
+            <p>Phone: (123) 456-7890<br>Email: info@university.edu</p>
+        </div>
+
+        <div class="footer-section social">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+                <a href="#" class="telegram" onclick="Telegramm()">
+                    <img src="./img/icon/telegram.png" alt="Telegram">
+                </a>
+
+                <a href="#" class="twitter" onclick="Twitterm()">
+                    <img src="./img/icon/twitter.png" alt="Twitter">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Your University. All rights reserved.</p>
+    </div>
+</footer>
+
+
+<script src="script.js"></script>
+<script>
+
+</script>
+</body>
+</html>
